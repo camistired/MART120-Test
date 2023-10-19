@@ -7,6 +7,6 @@ div {
     color:lawngreen;
     font-family: 'Courier New', Courier, monospace;
 }
-body {
+#specificBackground {
     background-image: url("turnip.png");
 }
