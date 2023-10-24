@@ -1,0 +1,45 @@
+<html>
+    <title>First JavaScript Page</title>
+    <head>
+        <script>
+            window.alert("haii :3 i now have your ip address and social security information along with access to your browser history. what is wrong with you.");
+            document.write("Hello :D");
+           
+            var favoriteNumber = 21;
+            var myName;
+            myName = "Walter Hartwell White";
+            var blue, red, green;
+            blue = "#0000FF";
+
+            function changeName(name) {
+                myName = name;
+                document.getElementById("myID").innerHTML = "My name is " + myName;
+            }
+
+
+        </script>
+    </head>
+    <body onload="changeName('Peter Griffin');">
+        <br>
+        <br>
+        Surprise!
+        <br>
+        <br>
+        Never gonna give you up<br>
+        Never gonna let you down<br>
+        Never gonna run around around desert you<br>
+        meow<br>
+        
+        <span id="myTag">This is epic sauce swag mode</span>
+        <span id="myID">non styled text or somethin</span>
+    </body>
+
+    <script>
+        document.getElementById("myTag").innerHTML = "New Text";
+        console.log("Hello there.");
+        
+    </script>
+
+
+
+</html>
