@@ -4,11 +4,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
         <script>
 
-            //I APOLOGIZE FOR THE FLASHING LIGHTS IN ADVANCE I could not figure out how to get each circle to be a different color without it flashing.
             
             //x and y for character
             var characterX = 100;
             var characterY = 100;
+
 
             //x and y for shape
             var shapeX = 30;
@@ -32,18 +32,23 @@
             var mouseShapeY;
 
             //random color for shapes
-            var randomColor;
+            var randomColors = [];
+            
             function setup()
             {
                 createCanvas(800,300);
                 
                 for (var i = 0; i < 5; i ++)
                 {
+                    
                     shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
                     shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
                     shapeXs[i] = getRandomNumber(800);
                     shapeYs[i] = getRandomNumber(300);
                     diameters[i] = getRandomNumber(30);
+                    randomColors[i] = (color(random(255), random(255), random(255)));
+                    
+                    
                 }
                 
             }
@@ -58,7 +63,7 @@
                 createBorders();
                 createCharacter();
                 characterMovement(5);
-
+                
                 createShapes();
                 characterExitCheck();
                 createShapeMouseClick();
@@ -112,14 +117,16 @@
             }
 
             function createShapes()
-            {
-                randomColor = color(random(255), random(255), random(255))
-                fill(randomColor);
-                for (var i = 0; i <shapeXs.length; i++)
+            {   
+                
+                
+                for (var i = 0; i < shapeXs.length; i++)
                 {   
-                    
-                    
+                   
+                    fill(randomColors[i]);
                     circle(shapeXs[i], shapeYs[i], diameters[i]);
+                    
+                    
                     
                     shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
                     shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
@@ -177,6 +184,11 @@
             function getRandomNumber(number)
             {
                 return Math.floor(Math.random() * number) + 10;
+            }
+
+            function getRandomColor(r,g,b)
+            {
+                return Math.floor(Math.random() * r,g,b) + 10;
             }
 
             
