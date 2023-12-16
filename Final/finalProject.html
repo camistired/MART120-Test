@@ -1,0 +1,216 @@
+<html>
+    <head>
+        <h1>EPIC AWESOME DODGE BALL GAME</h1>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+             <script>
+                
+                //x and y for borders
+                var borderX = 0;
+                var borderY = 0;
+                var thickness = 10;         
+                
+
+                //x and y for character
+                var characterX = 100;
+                var characterY = 100;
+                var characterDiameter = 30;
+                var speed = 2;
+                    
+                    
+                //x and y for shape
+                var shapeX = 30;
+                var shapeY = 50;
+                
+                var shapeXs = [];
+                var shapeYs = [];
+                var diameters = [];
+                    
+                var shapeXSpeeds = [];
+                var shapeYSpeeds = [];
+                    
+                //key codes for wasd
+                var w = 87;
+                var s = 83;
+                var a = 65;
+                var d = 68;
+                    
+                //random color for shapes
+                var randomColors = [];
+                                
+                function setup()
+                {
+                    createCanvas(800,600);
+                                    
+                    for (var i = 0; i < 15; i ++)
+                    {
+                                        
+                        shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                        shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                        shapeXs[i] = getRandomNumber(800);
+                        shapeYs[i] = getRandomNumber(600);
+                        diameters[i] = getRandomNumber(30);
+                        randomColors[i] = (color(random(255), random(255), random(255)));
+                                        
+                                        
+                    }
+                                    
+                }
+                    
+                function draw()
+                {
+                    background(255, 182, 193);
+                    stroke(0);
+                    fill(0);
+                    
+                    exitMessage();
+                    createBorders();
+                    createCharacter();
+                    characterMovement();
+                    characterBoundaryCheck();
+                    createShapes();
+                    characterExitCheck();
+                    
+                                    
+                }
+                    
+                function characterMovement()
+                {
+                    if(keyIsDown(w))
+                    {
+                        characterY -= speed;
+                    }
+                    if(keyIsDown(s))
+                    {
+                         characterY += speed;
+                                    }
+                    if(keyIsDown(a))
+                    {
+                        characterX -= speed;
+                    }
+                    if(keyIsDown(d))
+                    {
+                        characterX += speed;
+                    }
+                }
+                    
+                function createCharacter()
+                {
+                     fill(255,0,0);
+                    circle(characterX,characterY,characterDiameter);
+                }
+                    
+                function createBorders()
+                {
+                    //top border
+                    rect(borderX,borderY,width,thickness);
+                    //left border
+                    rect(borderX,borderY,thickness,height);
+                    //bottom border
+                    rect(borderX, height-10, width, thickness);
+                    //right upper border
+                    rect(width-10,borderX,thickness,height-70);
+    
+                }
+                                
+                function exitMessage()
+                {
+                    textSize(24);
+                    text("EXIT -->", width-100,height-40);
+                }
+                    
+                function createShapes()
+                {   
+                                    
+                                    
+                    for (var i = 0; i < shapeXs.length; i++)
+                    {   
+                                       
+                        fill(randomColors[i]);
+                        circle(shapeXs[i], shapeYs[i], diameters[i]);
+                                        
+                                        
+                                        
+                        shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                        shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                                        
+                        //move shape
+                        shapeXs[i] += shapeXSpeeds[i] + 3;
+                        shapeYs[i] += shapeYSpeeds[i] + 3;
+                    
+                        //check to see if shape out of bounds
+                        if(shapeXs[i] > width)
+                        {
+                            shapeXs[i] = 0;
+                        }
+                        if(shapeXs[i] < 0)
+                        {
+                            shapeXs[i] = width;
+                        }
+                        if(shapeYs[i] > height)
+                        {
+                            shapeYs[i] = 0;
+                        }
+                        if(shapeYs[i] < 0)
+                        {
+                             shapeYs[i] = height;
+                        }
+
+                        //might look similar to mint's code - i asked for help :)
+                        //detects character collision with shapes
+                        var distance = dist(characterX, characterY, shapeXs[i], shapeYs[i]);
+                        var minDistance = characterDiameter / 2 + diameters[i] / 2;
+                        
+                        if (distance < minDistance) 
+                        {
+                             window.location.href = 'finalLose.html';
+                        }
+
+                                        
+                                        
+                    }
+                }
+                
+                function characterBoundaryCheck()
+                {   
+
+
+                    //stops character in place if touches boundaries
+                    if (characterX < 25) //right
+                    {
+                        characterX = characterX + speed;
+                    }
+                    if (characterX > width - 25 && characterY < height-70) //left
+                    {
+                        characterX = characterX - speed;
+                    }
+
+                    if (characterY < 25) //top
+                    {
+                        characterY = characterY + speed;
+                    }
+                    if (characterY > height - 25) //bottom
+                    {
+                        characterY = characterY - speed;
+                    }
+                }
+
+
+                function characterExitCheck()
+                {
+                    //check to see if character left exit
+                    if(characterX > width && characterY > height-70)
+                    {
+                        window.location.href = 'finalWin.html';
+                    }
+                    
+                }
+                
+                    
+                function getRandomNumber(number)
+                {
+                    return Math.floor(Math.random() * number) + 10;
+                }
+                
+                            </script>
+                        </head>
+                    </html>
