@@ -1,0 +1,186 @@
+
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script>
+
+            //I APOLOGIZE FOR THE FLASHING LIGHTS IN ADVANCE I could not figure out how to get each circle to be a different color without it flashing.
+            
+            //x and y for character
+            var characterX = 100;
+            var characterY = 100;
+
+            //x and y for shape
+            var shapeX = 30;
+            var shapeY = 50;
+
+            var shapeXs = [];
+            var shapeYs = [];
+            var diameters = [];
+
+            var shapeXSpeeds = [];
+            var shapeYSpeeds = [];
+
+            //key codes for wasd
+            var w = 87;
+            var s = 83;
+            var a = 65;
+            var d = 68;
+
+            //create shape when mouse clicked
+            var mouseShapeX;
+            var mouseShapeY;
+
+            //random color for shapes
+            var randomColor;
+            function setup()
+            {
+                createCanvas(800,300);
+                
+                for (var i = 0; i < 5; i ++)
+                {
+                    shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                    shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                    shapeXs[i] = getRandomNumber(800);
+                    shapeYs[i] = getRandomNumber(300);
+                    diameters[i] = getRandomNumber(30);
+                }
+                
+            }
+
+            function draw()
+            {
+                background(255, 182, 193);
+                stroke(0);
+                fill(0);
+
+                exitMessage();
+                createBorders();
+                createCharacter();
+                characterMovement(5);
+
+                createShapes();
+                characterExitCheck();
+                createShapeMouseClick();
+
+                
+            }
+
+            function characterMovement(speed)
+            {
+                if(keyIsDown(w))
+                {
+                    characterY -= speed;
+                }
+                if(keyIsDown(s))
+                {
+                    characterY += speed;
+                }
+                if(keyIsDown(a))
+                {
+                    characterX -= speed;
+                }
+                if(keyIsDown(d))
+                {
+                    characterX += speed;
+                }
+            }
+
+            function createCharacter()
+            {
+                fill(255,0,0);
+                circle(characterX,characterY,30);
+            }
+
+            function createBorders()
+            {
+                //top border
+                rect(0,0,width,10);
+                //left border
+                rect(0,0,10,height);
+                //bottom border
+                rect(0, height-10, width, 10);
+                //right upper border
+                rect(width-10,0,10,height-70);
+
+            }
+            
+            function exitMessage()
+            {
+                textSize(24);
+                text("EXIT -->", width-100,height-40);
+            }
+
+            function createShapes()
+            {
+                randomColor = color(random(255), random(255), random(255))
+                fill(randomColor);
+                for (var i = 0; i <shapeXs.length; i++)
+                {   
+                    
+                    
+                    circle(shapeXs[i], shapeYs[i], diameters[i]);
+                    
+                    shapeXSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                    shapeYSpeeds[i] = Math.floor(Math.random() * (Math.floor(Math.random() * 5)) +1);
+                    
+                    //move shape
+                    shapeXs[i] += shapeXSpeeds[i];
+                    shapeYs[i] += shapeYSpeeds[i];
+
+                    //check to see if shape out of bounds
+                    if(shapeXs[i] > width)
+                    {
+                        shapeXs[i] = 0;
+                    }
+                    if(shapeXs[i] < 0)
+                    {
+                        shapeXs[i] = width;
+                    }
+                    if(shapeYs[i] > height)
+                    {
+                        shapeYs[i] = 0;
+                    }
+                    if(shapeYs[i] < 0)
+                    {
+                        shapeYs[i] = height;
+                    }
+                    
+                }
+            }
+
+            function characterExitCheck()
+            {
+                //check to see if character left exit
+                if(characterX > width && characterY > height-70)
+                {
+                    fill(0);
+                    stroke(10);
+                    textSize(40);
+                    text("YIPEE YOU WIN", width/2-140, height/2-50);
+                }
+
+            }
+
+            function mouseClicked()
+            {
+                mouseShapeX = mouseX;
+                mouseShapeY = mouseY;
+            }
+
+            function createShapeMouseClick()
+            {
+                fill(120,130,140);
+                circle(mouseShapeX, mouseShapeY, 25);
+            }
+
+            function getRandomNumber(number)
+            {
+                return Math.floor(Math.random() * number) + 10;
+            }
+
+            
+
+        </script>
+    </head>
+</html>

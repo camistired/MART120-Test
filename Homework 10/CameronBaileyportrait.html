@@ -1,0 +1,162 @@
+<html>
+    <head>
+        <title>Self Portrait</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        
+        <script>
+            
+            var headX = 140;
+            var headY = 100;
+            var headZ = 100;
+            var headSize = 50;
+            var headDirection = 1;
+
+            var bodyX = 115;
+            var bodyY = 152;
+            var bodyDirection = 3;
+            
+            var fSize = 12;
+            var fMovement = 1;
+            
+
+            var eyeRightX = 150;
+            var eyeRightY = 90;
+            var eyeRightDirection = 1;
+
+            var eyeLeftX = 110;
+            var eyeLeftY = 90;
+            var eyeLeftDirection = 1;
+
+            var pupilRightX = 160;
+            var pupilRightY = 100;
+            var pupilRightDirection = 1;
+
+            var pupilLeftX = 118;
+            var pupilLeftY = 100;
+            var pupilLeftDirection =1;
+
+            var mouthX
+            var mouthY
+            var mouthDirection = 1;
+
+            var hairX = 140;
+            var hairY = 25;
+            var hairDirection = 1;
+
+            var limbX
+            var limbY
+            var limbDirection = 1;
+
+            
+            function setup()
+            {
+                createCanvas(300,500);
+                headDirection = floor(random() * 10) + 1;
+                bodyDirection = floor(random() * 10) + 1;
+                eyeLeftDirection = floor(random() * 10) + 1;
+                eyeRightDirection = floor(random() * 10) + 1;
+                pupilLeftDirection = floor(random() * 10) + 1;
+                pupilRightDirection = floor(random() * 10) + 1;
+                hairDirection = floor(random() * 10) + 1;
+
+            }
+            
+
+            function draw()
+            {
+                background(154,220,163);
+                
+                // head
+                strokeWeight(1);
+                fill(255, 204, 190);
+                circle(headX,headY,headZ);
+                headX+=headDirection;
+                if(headX >= 218 || headX <=82)
+                {
+                    headDirection *= -1;
+                }
+                headZ+=headSize
+                if(headZ <= 50 || headZ >= 100)
+                {
+                    headSize *= -1;
+                }
+                //eyes
+                fill(255);
+                square(eyeRightX,eyeRightY,20);
+                eyeRightX+=eyeRightDirection;
+
+                square(eyeLeftX,eyeLeftY,20);
+                eyeLeftX+=eyeLeftDirection;
+
+                if(eyeRightX >= 218 || eyeRightX <=82)
+                {
+                    eyeRightDirection *= -1;
+                }
+
+                if(eyeLeftX >= 218 || eyeLeftX <=82)
+                {
+                    eyeLeftDirection *= -1;
+                }
+
+                //pupils, make move diagonally, maybe put x and y in and then keep both as += direction? or one += and one -=?
+                fill(0);
+                strokeWeight(10);
+                point(pupilLeftX,pupilLeftY);
+                point(pupilRightX,pupilRightY);
+
+                pupilLeftX+=pupilLeftDirection;
+                pupilLeftY+=pupilLeftDirection;
+
+                pupilRightX+=pupilRightDirection;
+                pupilRightY+=pupilRightDirection;
+
+                if(pupilLeftX >= 218 || pupilLeftX <=82 || pupilLeftY <= 100 || pupilLeftY >= 350 ||pupilRightX >= 218 || pupilRightX <=82 || pupilRightY <= 100 || pupilRightY >= 350  )
+                {
+                    pupilLeftDirection *= -1;
+                    pupilRightDirection *= -1;
+                }
+
+                //body
+                fill(0);
+                strokeWeight(1);
+                rect(115,bodyY,50,100);
+                bodyY += bodyDirection;
+                if(bodyY <= 100 || bodyY >= 350)
+                {
+                    bodyDirection *= -1;
+                }
+
+                //mouth, make x axis
+                fill(255,100,100);
+                triangle(113,125,141,140,169,125);
+                
+                //hair
+                fill(0,0,100);
+                circle(hairX,hairY,50);
+                hairY += hairDirection;
+                if(hairY <= 10 || hairY >= 200)
+                {
+                    hairDirection *= -1;
+                }
+                
+                //limbs
+                line(60,120,115,175);
+                line(230,120,165,175);
+                line(120,252,120,352);
+                line(160,252,160,352);
+                fill(0);
+
+                textSize(fSize);
+                fSize += fMovement;
+                if(fSize <= 12 || fSize >= 40)
+                {
+                    fMovement *= -1;
+                    
+                }
+                text('Self Portrait',10,30);
+                
+            }
+        </script>
+    </head>
+    
+</html>
